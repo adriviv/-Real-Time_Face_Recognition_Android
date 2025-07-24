@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         add_face.setVisibility(View.INVISIBLE);
 
         SharedPreferences sharedPref = getSharedPreferences("Distance",Context.MODE_PRIVATE);
-        distance = sharedPref.getFloat("distance",1.00f);
+        distance = sharedPref.getFloat("distance",0.65f);
 
         face_preview.setVisibility(View.INVISIBLE);
         recognize=findViewById(R.id.button3);
@@ -445,14 +445,14 @@ public class MainActivity extends AppCompatActivity {
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Euclidean Distance");
-        builder.setMessage("0.00 -> Perfect Match\n1.00 -> Default\nTurn On Developer Mode to find optimum value\n\nCurrent Value:");
+        builder.setMessage("0.00 -> Perfect Match\n0.65 -> Default (Very High Precision)\n0.80 -> High Precision\n1.00 -> Moderate Precision\nLower values = Higher precision\nTurn On Developer Mode to find optimum value\n\nCurrent Value:");
         // Set up the input
         final EditText input = new EditText(context);
 
         input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         builder.setView(input);
         SharedPreferences sharedPref = getSharedPreferences("Distance",Context.MODE_PRIVATE);
-        distance = sharedPref.getFloat("distance",1.00f);
+        distance = sharedPref.getFloat("distance",0.65f);
         input.setText(String.valueOf(distance));
         // Set up the buttons
         builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
