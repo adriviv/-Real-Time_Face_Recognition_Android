@@ -1,73 +1,120 @@
-# Real Time Face Recognition App using TfLite
+# Real-Time Face Recognition Android App
 
-A minimalistic Face Recognition module which can be easily incorporated in any Android project.
+## 🌟 Overview
 
-## [Playstore Link](https://play.google.com/store/apps/details?id=com.atharvakale.facerecognition)
+This Android application demonstrates real-time face recognition using TensorFlow Lite and ML Kit. It's built with a modular architecture that supports multiple recognition features (face, audio, location).
 
-## Key Features 
-- Fast and very accurate.
-- No re-training required to add new Faces.
-- Save Recognitions for further use.
-- Real-Time and offline.
-- Simple UI.
+## ✨ Features
 
-## Tools and Frameworks used:
-- Android Studio (Java)
-- CameraX
-- ML Kit
-- TensorFlow Lite
+- **Real-time Face Recognition** 🎭
+  - Face detection using ML Kit
+  - Face recognition using TensorFlow Lite
+  - Support for multiple faces
+  - Front/back camera switching
 
-## Model 
-- MobileFaceNet : [Research Paper](https://arxiv.org/ftp/arxiv/papers/1804/1804.07573.pdf)
-- [Implementation](https://github.com/sirius-ai/MobileFaceNet_TF)
+- **Modular Architecture** 🏗️
+  - Clean separation of concerns
+  - Reusable ML infrastructure
+  - Easy to add new features
+  - Robust error handling
 
-## Installation
+- **Future Features** 🚀
+  - Audio recognition support
+  - Location-based features
+  - Multi-modal recognition
 
-Use Import from Version Control in Android Studio or Clone repo and open the project in Android Studio.
+## 🚀 Quick Start
 
-```bash
-git clone https://github.com/atharvakale31/Face_Recognition_Android.git
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/yourusername/Real-Time_Face_Recognition_Android.git
+   ```
+
+2. **Open in Android Studio**
+   - Open Android Studio
+   - Select "Open an Existing Project"
+   - Navigate to the cloned directory
+
+3. **Build and Run**
+   - Connect an Android device or use an emulator
+   - Click "Run" (▶️) or press `Shift + F10`
+
+## 📱 Usage
+
+1. **Face Recognition**
+   - Launch the app
+   - Point camera at a face
+   - Click "Add Face" to register
+   - Enter name when prompted
+   - Switch to recognition mode
+
+2. **Camera Controls**
+   - Switch between front/back cameras
+   - Adjust recognition sensitivity
+   - View registered faces
+   - Import photos for recognition
+
+## 🏗️ Architecture
+
+The app follows a modular, layered architecture:
+
 ```
-### Application file : [Face_Recognition.apk](https://drive.google.com/file/d/1ggOo4acHOodrdCP2MkfUv4DJlL_VDZH4/view?usp=sharing)
+com.atharvakale.facerecognition/
+├── ml/                 # ML Infrastructure
+├── hardware/          # Hardware Abstraction
+├── data/             # Data Management
+└── features/         # Feature Modules
+```
 
-## Usage
-<table>
-  <tr>
-    <td><b>1.Add Face</b></td>
-     <td><b>2.Import Face</b></td>
-     <td><b>3.Recognize Face</b></td>
-     
-  </tr>
-  <tr>
-    <td><img src="demo/add_face.gif" width=270 height=480></td>
-  <td><img src="demo/import photo.gif" width=270 height=480></td>
-    <td><img src="demo/recognize_face.gif" width=270 height=480></td>
-  
-  </tr>
- </table>
- 
+For detailed architecture information, see [ARCHITECTURE.md](ARCHITECTURE.md).
 
- 
- <table>
-  <tr>
-    <td><b>Actions</b></td>
-     <td><b>View Recognitions</b></td>
-     <td><b>Update Recognitions</b></td>
-  </tr>
-  <tr>
-    <td><img src="demo/actions.jpeg" width=270 height=480></td>
-    <td><img src="demo/view_reco.jpeg" width=270 height=480></td>
-    <td><img src="demo/update_reco.jpeg" width=270 height=480></td>
-  </tr>
- </table>
- 
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+## 🔧 Technical Details
 
+- **Minimum SDK**: 21 (Android 5.0)
+- **Target SDK**: 34 (Android 14)
+- **ML Framework**: TensorFlow Lite
+- **Face Detection**: ML Kit
+- **Camera API**: CameraX
+- **Architecture**: MVVM + Clean Architecture
 
+## 📚 Dependencies
 
-# Action Items
-- [ ] Improve Performance(Code Optimization)
-- [ ] Auto face orientation for Import Photo Action.
-- [ ] iOS application
+```gradle
+dependencies {
+    // ML Kit Face Detection
+    implementation 'com.google.mlkit:face-detection:16.1.6'
+    
+    // TensorFlow Lite
+    implementation 'org.tensorflow:tensorflow-lite:2.14.0'
+    implementation 'org.tensorflow:tensorflow-lite-support:0.4.4'
+    
+    // CameraX
+    implementation "androidx.camera:camera-core:1.3.1"
+    implementation "androidx.camera:camera-camera2:1.3.1"
+}
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## 📄 License
+
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- [TensorFlow Lite](https://www.tensorflow.org/lite)
+- [ML Kit](https://developers.google.com/ml-kit)
+- [CameraX](https://developer.android.com/training/camerax)
+
+## 📞 Contact
+
+For questions or feedback, please open an issue or contact:
+- Email: your.email@example.com
+- Twitter: [@yourusername](https://twitter.com/yourusername)
 
