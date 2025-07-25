@@ -72,25 +72,85 @@ public class TFLiteProcessor {
      * Calculate cosine similarity between two embedding vectors
      * @param emb1 First embedding vector
      * @param emb2 Second embedding vector
-     * @return Cosine similarity (0-1, where 1 is most similar)
+     * @return Cosine similarity value (0-1, where 1 is perfect match)
      */
     public static float calculateCosineSimilarity(float[] emb1, float[] emb2) {
         if (emb1.length != emb2.length) {
             throw new IllegalArgumentException("Embedding vectors must have the same length");
         }
         
-        float dotProduct = 0;
-        float norm1 = 0;
-        float norm2 = 0;
+        float dotProduct = 0.0f;
+        float normA = 0.0f;
+        float normB = 0.0f;
         
         for (int i = 0; i < emb1.length; i++) {
             dotProduct += emb1[i] * emb2[i];
-            norm1 += emb1[i] * emb1[i];
-            norm2 += emb2[i] * emb2[i];
+            normA += emb1[i] * emb1[i];
+            normB += emb2[i] * emb2[i];
         }
         
-        return dotProduct / (float) (Math.sqrt(norm1) * Math.sqrt(norm2));
+        if (normA == 0.0f || normB == 0.0f) {
+            return 0.0f;
+        }
+        
+        return dotProduct / (float)(Math.sqrt(normA) * Math.sqrt(normB));
     }
+    
+    /**
+     * Convert audio samples to ByteBuffer for TensorFlow Lite input
+     * @param audioSamples Input audio samples
+     * @param inputSize Required input size for the model
+     * @return ByteBuffer ready for model input
+     */
+    public static ByteBuffer audioToByteBuffer(float[] audioSamples, int inputSize) {
+        ByteBuffer audioData = ByteBuffer.allocateDirect(inputSize * 4); // 4 bytes per float
+        audioData.order(ByteOrder.nativeOrder());
+        
+        audioData.rewind();
+        
+        // Pad or truncate to exact input size
+        for (int i = 0; i < inputSize; i++) {
+            if (i < audioSamples.length) {
+                audioData.putFloat(audioSamples[i]);
+            } else {
+                audioData.putFloat(0.0f); // Zero padding
+            }
+        }
+        
+        return audioData;
+    }
+    
+    /**
+     * Normalize audio samples to [-1, 1] range
+     * @param audioSamples Input audio samples
+     * @return Normalized audio samples
+     */
+    public static float[] normalizeAudio(float[] audioSamples) {
+        if (audioSamples == null || audioSamples.length == 0) {
+            return audioSamples;
+        }
+        
+        // Find max absolute value
+        float maxAbs = 0.0f;
+        for (float sample : audioSamples) {
+            maxAbs = Math.max(maxAbs, Math.abs(sample));
+        }
+        
+        // Avoid division by zero
+        if (maxAbs == 0.0f) {
+            return audioSamples;
+        }
+        
+        // Normalize to [-1, 1]
+        float[] normalized = new float[audioSamples.length];
+        for (int i = 0; i < audioSamples.length; i++) {
+            normalized[i] = audioSamples[i] / maxAbs;
+        }
+        
+        return normalized;
+    }
+    
+
     
     /**
      * Normalize an embedding vector

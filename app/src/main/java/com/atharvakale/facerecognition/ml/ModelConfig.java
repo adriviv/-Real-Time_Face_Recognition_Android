@@ -18,11 +18,19 @@ public class ModelConfig {
         public static final float DEFAULT_SIMILARITY_THRESHOLD = 0.65f;
     }
     
-    // Future: Audio Recognition Model Configuration
-    public static class AudioRecognition {
-        public static final String MODEL_FILE = "audio_recognition.tflite";
-        public static final String MODEL_KEY = "audio_recognition";
-        // Additional audio-specific configurations will be added here
+    // FRILL Speaker Recognition Model Configuration
+    public static class SpeakerRecognition {
+        public static final String MODEL_FILE = "frill.tflite";
+        public static final String MODEL_KEY = "speaker_recognition";
+        public static final int SAMPLE_RATE = 16000;
+        public static final int WINDOW_SIZE_MS = 2000; // 2 seconds (32000 samples at 16kHz)
+        public static final int WINDOW_SIZE_SAMPLES = (SAMPLE_RATE * WINDOW_SIZE_MS) / 1000; // 32000 samples
+        public static final int HOP_SIZE_MS = 500; // 500ms overlap for smoother processing
+        public static final int HOP_SIZE_SAMPLES = (SAMPLE_RATE * HOP_SIZE_MS) / 1000; // 8000 samples
+        public static final int OUTPUT_SIZE = 2048; // FRILL embedding dimension (from documentation)
+                    public static final float DEFAULT_SIMILARITY_THRESHOLD = 0.55f;
+        public static final int REGISTRATION_DURATION_SEC = 10; // 10 seconds for enrollment
+        public static final int MIN_REGISTRATION_WINDOWS = 3; // Minimum windows for enrollment (fewer needed with 2s windows)
     }
     
     // Future: Other model configurations can be added here
@@ -34,8 +42,8 @@ public class ModelConfig {
         switch (modelType) {
             case "face":
                 return FaceRecognition.MODEL_FILE;
-            case "audio":
-                return AudioRecognition.MODEL_FILE;
+            case "speaker":
+                return SpeakerRecognition.MODEL_FILE;
             default:
                 throw new IllegalArgumentException("Unknown model type: " + modelType);
         }
@@ -45,8 +53,8 @@ public class ModelConfig {
         switch (modelType) {
             case "face":
                 return FaceRecognition.MODEL_KEY;
-            case "audio":
-                return AudioRecognition.MODEL_KEY;
+            case "speaker":
+                return SpeakerRecognition.MODEL_KEY;
             default:
                 throw new IllegalArgumentException("Unknown model type: " + modelType);
         }
